@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#task-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#task-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#task-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+    </style>
+    </head>
+    <body>
+        <h1>To-Do List</h1>
+    <form id="task-form">
+        <input type="text" id="task-input" placeholder="Enter task">
+        <button type="submit">Add</button>
+    </form>
+    <ul id="task-list"></ul>
+    <script>
+        document.getElementById('task-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var taskInput = document.getElementById('task-input');
+    var taskList = document.getElementById('task-list');
+
+    if (taskInput.value.trim() === '') {
+        alert('Please enter a task');
+        return;
+    }
+
+    var listItem = document.createElement('li');
+    listItem.textContent = taskInput.value;
+    taskList.appendChild(listItem);
+
+    taskInput.value = '';
+});
+document.getElementById('task-list').addEventListener('click', function(e) {
+    var saveButton = e.target;
+
+    if (saveButton.tagName === 'BUTTON' && saveButton.classList.contains('save')) {
+        var listItem = saveButton.parentElement;
+        var input = listItem.querySelector('input');
+
+        listItem.textContent = input.value;
+
+        var editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit');
+
+        listItem.appendChild(editButton);
+
+        saveButton.remove();
+    }
+});
+     </script>
+    </body>
+    </html>
